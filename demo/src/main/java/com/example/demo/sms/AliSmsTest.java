@@ -11,9 +11,10 @@ public class AliSmsTest {
     public static void main(String[] args) {
         SendSms duanxin = new SendSms();
         try {
-            duanxin.send("17737552970", 0, "123123");
+            duanxin.send("17737552970", 1, "8888");
         } catch (ClientException e) {
             e.printStackTrace();
         }
+
     }
 }

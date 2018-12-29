@@ -17,20 +17,20 @@ import org.slf4j.LoggerFactory;
 
 public class SendSms {
 
-    private String URL="dysmsapi.aliyuncs.com"; // 阿里短信验证码url
+    private String URL = "dysmsapi.aliyuncs.com"; // 阿里短信验证码url
 
-    private String ACCESS_ID="LTAIrEv8URC1EymP"; // 阿里账号app key
+    private String ACCESS_ID = "LTAIw50flc75HzAP"; // 阿里账号app key
 
 
-    private String ACCESS_KEY="OZ8seK2tYRSo3AsvDGak30xgIsZQrq"; // 阿里账号app secret
+    private String ACCESS_KEY = "y5Q2aFw95WsYD0nTscR8PDwBG4L2k7"; // 阿里账号app secret
 
-    private String PRODUCT="Dysmsapi"; // 短信签名
+    private String PRODUCT = "Dysmsapi";
 
-    private String SIGN_NAME="微兔科技"; // 短信签名
+    private String SIGN_NAME = "草本便利"; // 短信签名
 
-    private String TID_DEFAULT="SMS_79005066"; // 默认短信模板号
+    private String TID_DEFAULT = "SMS_150695108"; // 默认短信模板号
 
-    private String TID_CAPTCHA_REGISTER="SMS_78975068"; // 注册短信模板号
+    private String TID_CAPTCHA_REGISTER = "SMS_150695107"; // 注册短信模板号
 
     private Logger logger = LoggerFactory.getLogger(SendSms.class);
 
@@ -71,17 +71,17 @@ public class SendSms {
                 //必填:短信模板-可在短信控制台中找到
                 request.setTemplateCode(TID_DEFAULT);
                 //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
-                request.setTemplateParam("{\"code\":\"" + content + "\"}");
+
                 break;
             case 1:    // // 注册验证码短信模板
                 request.setTemplateCode(TID_CAPTCHA_REGISTER);
-                request.setTemplateParam("{\"code\":\"" + content + "\"}");
                 break;
         }
+        request.setTemplateParam("{\"code\":\"" + content + "\"}");
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
         String returnCode = sendSmsResponse.getCode();
         if (returnCode != null && returnCode.equals("OK")) {
-            logger.info("短信发送成功! [" +content + "] >>>>>>>>>>> " + mobile);
+            logger.info("短信发送成功! [" + content + "] >>>>>>>>>>> " + mobile);
             return;
         } else {
             logger.error("短信发送失败! 错误信息:" + sendSmsResponse.getCode() + "=" + sendSmsResponse.getMessage());
